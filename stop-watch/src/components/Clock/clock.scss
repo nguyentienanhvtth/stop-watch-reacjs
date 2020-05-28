@@ -1,13 +1,22 @@
 .Clock{
     padding-top: 30px;
     text-align: center;
+    position: relative;
     h1{
+        margin-top: 0;
         font-weight: 100;
         font-size: 60px;
         span{
             width: 62px;
             text-align: center;
             display: inline-block;
+        }
+    }
+    .laps-cLock{
+        text-align: right;
+        width: 85%;
+        p{
+            padding-top: 30px;
         }
     }
 }
