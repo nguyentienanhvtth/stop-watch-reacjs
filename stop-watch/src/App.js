@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.scss';
-import Clock from './components/Clock/CLock';
-import Button from './components/Button/Button';
+import Clock from './components/Clock/Clock';
+import Buttons from './components/Buttons/Buttons';
 import Laps from './components/Laps/Laps';
+import { AppBox, IphoneBg } from './appStyle'
 
 
 var myClock;
@@ -13,10 +14,10 @@ class App extends Component {
     this.state = {
       lapDisable: true,
       isLap: true, isRestart: false, isStart: true, isStop: false,
-      //Main clock
+      //Main Clock
       milliseconds: 0, seconds: 0, minutes: 0,
       millisecondsOut: '00', secondsOut: '00', minutesOut: '00',
-      //Lap clock
+      //Lap Clock
       milliseconds2: 0, seconds2: 0, minutes2: 0,
       millisecondsOut2: '00', secondsOut2: '00', minutesOut2: '00',
       lapArr: [],
@@ -27,7 +28,6 @@ class App extends Component {
     this.handleRestart = this.handleRestart.bind(this);
     this.handleLap = this.handleLap.bind(this);
     this.addLap = this.addLap.bind(this);
-    this.lapCLockTimeUp = this.lapCLockTimeUp.bind(this);
   }
 
   handleStart(){
@@ -101,8 +101,6 @@ class App extends Component {
       millisecondsOut2: this.convertTimeOut(milliseconds2),
       secondsOut2: this.convertTimeOut(seconds2),
       minutesOut2: this.convertTimeOut(minutes2),
-    })
-    this.setState({
       milliseconds: milliseconds + 1,
       milliseconds2: milliseconds2 + 1,
     })
@@ -132,32 +130,6 @@ class App extends Component {
     }
   }
 
-  lapCLockTimeUp() {
-    const{
-      milliseconds2,seconds2,minutes2,
-    } = this.state;
-    this.setState({
-      millisecondsOut: this.convertTimeOut(milliseconds2),
-      secondsOut: this.convertTimeOut(seconds2),
-      minutesOut: this.convertTimeOut(minutes2),
-    })
-    this.setState({
-      milliseconds: milliseconds2 + 1,
-    })
-    if(milliseconds2 === 100){
-      this.setState({
-        milliseconds: 0,
-        seconds: seconds2 + 1,
-      })
-    }
-    if(seconds2 === 60){
-      this.setState({
-        seconds: 0,
-        minutes: minutes2 + 1,
-      })
-    }
-  }
-
   convertTimeOut(i){
     if (i < 10) {
       i = "0" + i;
@@ -167,30 +139,30 @@ class App extends Component {
 
   render(){
     return (
-      <div className="App">
-        <div className="iphone-bg">
-          <Clock
-            millisecondsOut = {this.state.millisecondsOut}
-            secondsOut = {this.state.secondsOut}
-            minutesOut = {this.state.minutesOut}
-            millisecondsOut2 = {this.state.millisecondsOut2}
-            secondsOut2 = {this.state.secondsOut2}
-            minutesOut2 = {this.state.minutesOut2}
-          ></Clock>
-          <Button
-            lapDisable = {this.state.lapDisable}
-            isLap={this.state.isLap}
-            isRestart={this.state.isRestart}
-            isStart={this.state.isStart}
-            isStop={this.state.isStop}
-            handleStart = {this.handleStart}
-            handleStop = {this.handleStop}
-            handleRestart = {this.handleRestart}
-            handleLap = {this.handleLap}
-          ></Button>
-          <Laps lapsArr = {this.state.lapArr} />
-        </div>
-      </div>
+      <AppBox>
+        <IphoneBg>
+        <Clock
+        millisecondsOut = {this.state.millisecondsOut}
+        secondsOut = {this.state.secondsOut}
+        minutesOut = {this.state.minutesOut}
+        millisecondsOut2 = {this.state.millisecondsOut2}
+        secondsOut2 = {this.state.secondsOut2}
+        minutesOut2 = {this.state.minutesOut2}
+        ></Clock>
+        <Buttons
+          lapDisable = {this.state.lapDisable}
+          isLap={this.state.isLap}
+          isRestart={this.state.isRestart}
+          isStart={this.state.isStart}
+          isStop={this.state.isStop}
+          handleStart = {this.handleStart}
+          handleStop = {this.handleStop}
+          handleRestart = {this.handleRestart}
+          handleLap = {this.handleLap}
+        ></Buttons>
+        <Laps lapsArr = {this.state.lapArr} />
+        </IphoneBg>
+      </AppBox>
     );
   }
 }
